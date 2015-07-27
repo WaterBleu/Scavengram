@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="348-De-80g">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -28,7 +29,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-at-dpv">
+                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-at-dpv">
                                 <rect key="frame" x="16" y="219" width="568" height="162"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csl-QF-OlP">
@@ -42,10 +43,11 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="fetchResult:" destination="348-De-80g" eventType="touchUpInside" id="sNf-vp-9Ww"/>
                                     <segue destination="jxP-rs-H8L" kind="show" identifier="segueToClueVC" id="Sba-me-qXi"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqQ-Bn-wRH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqQ-Bn-wRH">
                                 <rect key="frame" x="16" y="289" width="75" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -94,6 +96,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="inputCategory" destination="Shu-at-dpv" id="HIV-Cj-wqq"/>
+                        <outlet property="inputNumResult" destination="pnH-fO-maN" id="rYK-yJ-b7H"/>
+                        <outlet property="inputRadius" destination="NOJ-65-iw4" id="73a-Ep-cs5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zX3-2D-TTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -205,8 +212,6 @@
                                 <exclude reference="9To-sc-BUz"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="6j7-gk-ewO"/>
-                                <exclude reference="bIt-TR-U4k"/>
                                 <exclude reference="6o1-kw-VMH"/>
                                 <exclude reference="JXL-M9-wPD"/>
                                 <exclude reference="Nqa-F0-RgK"/>
@@ -216,6 +221,8 @@
                                 <exclude reference="9Zy-8P-SZ1"/>
                                 <exclude reference="IG6-et-5u1"/>
                                 <exclude reference="xev-EG-Xp9"/>
+                                <exclude reference="6j7-gk-ewO"/>
+                                <exclude reference="bIt-TR-U4k"/>
                                 <exclude reference="0mg-to-2Nb"/>
                             </mask>
                         </variation>

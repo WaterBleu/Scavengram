@@ -5,23 +5,23 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>85223396-DE4C-45AD-85D7-974BBBC07ABD</string>
+	<string>AAF7C4B4-29B6-4D0E-9A43-F04569D36370</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Scavengram</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>8F629BD958C8D4CD4BC0350650741F14ADC7295D</key>
-		<string>github.com:WaterBleu/Scavengram.git</string>
+		<string>https://github.com/WaterBleu/Scavengram.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Scavengram.xcodeproj</string>
+	<string>Scavengram.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>8F629BD958C8D4CD4BC0350650741F14ADC7295D</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:WaterBleu/Scavengram.git</string>
+	<string>https://github.com/WaterBleu/Scavengram.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
