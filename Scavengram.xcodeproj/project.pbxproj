@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97A716241B66CFB7009096DB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716231B66CFB7009096DB /* LoginViewController.m */; };
+		97A716271B66D01E009096DB /* ParamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716261B66D01E009096DB /* ParamsViewController.m */; };
+		97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716291B66D29B009096DB /* ClueViewController.m */; };
+		97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */; };
+		97A716301B66D2F8009096DB /* CluesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */; };
 		BD69B8121B66C488006378C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8111B66C488006378C9 /* main.m */; };
 		BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8141B66C488006378C9 /* AppDelegate.m */; };
-		BD69B8181B66C488006378C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8171B66C488006378C9 /* ViewController.m */; };
 		BD69B81B1B66C488006378C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD69B8191B66C488006378C9 /* Main.storyboard */; };
 		BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81C1B66C488006378C9 /* Images.xcassets */; };
 		BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81E1B66C488006378C9 /* LaunchScreen.xib */; };
@@ -27,13 +31,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97A716221B66CFB7009096DB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		97A716231B66CFB7009096DB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		97A716251B66D01E009096DB /* ParamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsViewController.h; sourceTree = "<group>"; };
+		97A716261B66D01E009096DB /* ParamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsViewController.m; sourceTree = "<group>"; };
+		97A716281B66D29B009096DB /* ClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClueViewController.h; sourceTree = "<group>"; };
+		97A716291B66D29B009096DB /* ClueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClueViewController.m; sourceTree = "<group>"; };
+		97A7162B1B66D2BA009096DB /* CluesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CluesCollectionViewController.h; sourceTree = "<group>"; };
+		97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CluesCollectionViewController.m; sourceTree = "<group>"; };
+		97A7162E1B66D2F8009096DB /* CluesCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CluesCollectionViewCell.h; sourceTree = "<group>"; };
+		97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CluesCollectionViewCell.m; sourceTree = "<group>"; };
 		BD69B80C1B66C488006378C9 /* Scavengram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scavengram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD69B8101B66C488006378C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD69B8111B66C488006378C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BD69B8131B66C488006378C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BD69B8141B66C488006378C9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BD69B8161B66C488006378C9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BD69B8171B66C488006378C9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BD69B81A1B66C488006378C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BD69B81C1B66C488006378C9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BD69B81F1B66C488006378C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -83,8 +95,16 @@
 			children = (
 				BD69B8131B66C488006378C9 /* AppDelegate.h */,
 				BD69B8141B66C488006378C9 /* AppDelegate.m */,
-				BD69B8161B66C488006378C9 /* ViewController.h */,
-				BD69B8171B66C488006378C9 /* ViewController.m */,
+				97A716221B66CFB7009096DB /* LoginViewController.h */,
+				97A716231B66CFB7009096DB /* LoginViewController.m */,
+				97A716251B66D01E009096DB /* ParamsViewController.h */,
+				97A716261B66D01E009096DB /* ParamsViewController.m */,
+				97A716281B66D29B009096DB /* ClueViewController.h */,
+				97A716291B66D29B009096DB /* ClueViewController.m */,
+				97A7162B1B66D2BA009096DB /* CluesCollectionViewController.h */,
+				97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */,
+				97A7162E1B66D2F8009096DB /* CluesCollectionViewCell.h */,
+				97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */,
 				BD69B8191B66C488006378C9 /* Main.storyboard */,
 				BD69B81C1B66C488006378C9 /* Images.xcassets */,
 				BD69B81E1B66C488006378C9 /* LaunchScreen.xib */,
@@ -219,9 +239,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD69B8181B66C488006378C9 /* ViewController.m in Sources */,
+				97A716301B66D2F8009096DB /* CluesCollectionViewCell.m in Sources */,
+				97A716271B66D01E009096DB /* ParamsViewController.m in Sources */,
 				BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */,
+				97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */,
 				BD69B8121B66C488006378C9 /* main.m in Sources */,
+				97A716241B66CFB7009096DB /* LoginViewController.m in Sources */,
+				97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +442,7 @@
 				BD69B8311B66C488006378C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD69B8321B66C488006378C9 /* Build configuration list for PBXNativeTarget "ScavengramTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +451,7 @@
 				BD69B8341B66C488006378C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
