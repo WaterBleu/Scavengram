@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		97A716241B66CFB7009096DB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716231B66CFB7009096DB /* LoginViewController.m */; };
 		97A716271B66D01E009096DB /* ParamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716261B66D01E009096DB /* ParamsViewController.m */; };
 		97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716291B66D29B009096DB /* ClueViewController.m */; };
 		97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */; };
@@ -31,8 +30,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		97A716221B66CFB7009096DB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		97A716231B66CFB7009096DB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		97A716251B66D01E009096DB /* ParamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsViewController.h; sourceTree = "<group>"; };
 		97A716261B66D01E009096DB /* ParamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsViewController.m; sourceTree = "<group>"; };
 		97A716281B66D29B009096DB /* ClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClueViewController.h; sourceTree = "<group>"; };
@@ -95,8 +92,6 @@
 			children = (
 				BD69B8131B66C488006378C9 /* AppDelegate.h */,
 				BD69B8141B66C488006378C9 /* AppDelegate.m */,
-				97A716221B66CFB7009096DB /* LoginViewController.h */,
-				97A716231B66CFB7009096DB /* LoginViewController.m */,
 				97A716251B66D01E009096DB /* ParamsViewController.h */,
 				97A716261B66D01E009096DB /* ParamsViewController.m */,
 				97A716281B66D29B009096DB /* ClueViewController.h */,
@@ -244,7 +239,6 @@
 				BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */,
 				97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */,
 				BD69B8121B66C488006378C9 /* main.m in Sources */,
-				97A716241B66CFB7009096DB /* LoginViewController.m in Sources */,
 				97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
