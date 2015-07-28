@@ -22,6 +22,8 @@
 
 @property (nonatomic) CLLocation *currentLocation;
 
+@property (nonatomic) NSMutableArray* photoIDArray;
+
 @end
 
 @implementation ParamsViewController
@@ -33,7 +35,7 @@
     self.inputCategory.delegate = self;
     self.tag = _tagArray[0];
     
-    
+    _photoIDArray = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,7 +47,7 @@
     
     self.currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
-    _apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search";
+    _apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     NSURL *targetURL = [[NSURL alloc] initWithString:
                         [NSString stringWithFormat:self.apiURL
                          , _tag
@@ -54,7 +56,28 @@
                          , _inputRadius.text
                          , _inputNumResult.text]];
 
-    NS
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+    NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error){
+            NSError *jsonError = nil;
+            
+            NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            
+            NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"photos.photo"];
+            
+            for(NSDictionary *dict in retrievedPhotos){
+                [_photoIDArray addObject:dict[@"id"]];
+            }
+            NSLog(@"%@",self.photoIDArray);
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[self.reviewTable reloadData];
+            });
+        }
+    }];
+    [dataTask resume];
+
 
 }
 

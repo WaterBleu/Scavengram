@@ -17,6 +17,7 @@
 		BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81C1B66C488006378C9 /* Images.xcassets */; };
 		BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81E1B66C488006378C9 /* LaunchScreen.xib */; };
 		BD69B82C1B66C488006378C9 /* ScavengramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B82B1B66C488006378C9 /* ScavengramTests.m */; };
+		BD69B8371B66FDC4006378C9 /* GeoPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8361B66FDC4006378C9 /* GeoPhoto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		BD69B8251B66C488006378C9 /* ScavengramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScavengramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD69B82A1B66C488006378C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD69B82B1B66C488006378C9 /* ScavengramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScavengramTests.m; sourceTree = "<group>"; };
+		BD69B8351B66FDC4006378C9 /* GeoPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPhoto.h; sourceTree = "<group>"; };
+		BD69B8361B66FDC4006378C9 /* GeoPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPhoto.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,8 @@
 				97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */,
 				97A7162E1B66D2F8009096DB /* CluesCollectionViewCell.h */,
 				97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */,
+				BD69B8351B66FDC4006378C9 /* GeoPhoto.h */,
+				BD69B8361B66FDC4006378C9 /* GeoPhoto.m */,
 				BD69B8191B66C488006378C9 /* Main.storyboard */,
 				BD69B81C1B66C488006378C9 /* Images.xcassets */,
 				BD69B81E1B66C488006378C9 /* LaunchScreen.xib */,
@@ -234,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD69B8371B66FDC4006378C9 /* GeoPhoto.m in Sources */,
 				97A716301B66D2F8009096DB /* CluesCollectionViewCell.m in Sources */,
 				97A716271B66D01E009096DB /* ParamsViewController.m in Sources */,
 				BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */,
