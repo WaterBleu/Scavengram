@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="348-De-80g">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q1k-lb-gSt">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -28,7 +29,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-at-dpv">
+                            <pickerView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shu-at-dpv">
                                 <rect key="frame" x="16" y="219" width="568" height="162"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csl-QF-OlP">
@@ -42,10 +43,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="jxP-rs-H8L" kind="show" identifier="segueToClueVC" id="Sba-me-qXi"/>
+                                    <action selector="fetchResult:" destination="348-De-80g" eventType="touchUpInside" id="sNf-vp-9Ww"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqQ-Bn-wRH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqQ-Bn-wRH">
                                 <rect key="frame" x="16" y="289" width="75" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -94,15 +95,21 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="cc4-je-Jf3"/>
+                    <connections>
+                        <outlet property="inputCategory" destination="Shu-at-dpv" id="HIV-Cj-wqq"/>
+                        <outlet property="inputNumResult" destination="pnH-fO-maN" id="rYK-yJ-b7H"/>
+                        <outlet property="inputRadius" destination="NOJ-65-iw4" id="73a-Ep-cs5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zX3-2D-TTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1137" y="372.75"/>
+            <point key="canvasLocation" x="2889" y="372.75"/>
         </scene>
         <!--Clue View Controller-->
         <scene sceneID="Ibl-bE-M6P">
             <objects>
-                <viewController id="IYg-xz-n4H" customClass="ClueViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ClueViewController" id="IYg-xz-n4H" customClass="ClueViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Iws-TI-YJz"/>
                         <viewControllerLayoutGuide type="bottom" id="1E0-7Q-b4m"/>
@@ -205,8 +212,6 @@
                                 <exclude reference="9To-sc-BUz"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="6j7-gk-ewO"/>
-                                <exclude reference="bIt-TR-U4k"/>
                                 <exclude reference="6o1-kw-VMH"/>
                                 <exclude reference="JXL-M9-wPD"/>
                                 <exclude reference="Nqa-F0-RgK"/>
@@ -216,6 +221,8 @@
                                 <exclude reference="9Zy-8P-SZ1"/>
                                 <exclude reference="IG6-et-5u1"/>
                                 <exclude reference="xev-EG-Xp9"/>
+                                <exclude reference="6j7-gk-ewO"/>
+                                <exclude reference="bIt-TR-U4k"/>
                                 <exclude reference="0mg-to-2Nb"/>
                             </mask>
                         </variation>
@@ -249,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIm-eV-Z0z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2728.5" y="372.75"/>
+            <point key="canvasLocation" x="3646.5" y="372.75"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="va9-uV-rz4">
@@ -283,25 +290,25 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x4X-cR-ViD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3540" y="372.75"/>
+            <point key="canvasLocation" x="4458" y="372.75"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="9wK-Sh-cHa">
+        <scene sceneID="fow-ss-52r">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jxP-rs-H8L" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q1k-lb-gSt" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bof-K7-2wP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aAJ-LE-90H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="IYg-xz-n4H" kind="relationship" relationship="rootViewController" id="MRC-yq-B0P"/>
+                        <segue destination="348-De-80g" kind="relationship" relationship="rootViewController" id="oEe-Vz-7dV"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZJj-d8-k7z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbU-6X-V9o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1939.5" y="372.75"/>
+            <point key="canvasLocation" x="1971" y="372.75"/>
         </scene>
     </scenes>
 </document>
