@@ -12,7 +12,6 @@
 
 @interface ParamsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic) NSString* apiURL;
 @property (weak, nonatomic) IBOutlet UITextField *inputRadius;
 @property (weak, nonatomic) IBOutlet UITextField *inputNumResult;
 @property (weak, nonatomic) IBOutlet UIPickerView *inputCategory;
@@ -23,8 +22,10 @@
 @property (nonatomic) CLLocation *currentLocation;
 
 @property (nonatomic) NSMutableArray* photoIDArray;
-
+@property (nonatomic) NSMutableArray* imageArray;
 @end
+
+#define medPhotoIndex = 5;
 
 @implementation ParamsViewController
 
@@ -47,9 +48,10 @@
     
     self.currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
-    _apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
+    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
+    
     NSURL *targetURL = [[NSURL alloc] initWithString:
-                        [NSString stringWithFormat:self.apiURL
+                        [NSString stringWithFormat:apiURL
                          , _tag
                          , _currentLocation.coordinate.latitude
                          , _currentLocation.coordinate.longitude
@@ -62,18 +64,41 @@
         if (!error){
             NSError *jsonError = nil;
             
-            NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            NSDictionary *retrievedPhotoIDDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
             
-            NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"photos.photo"];
+            NSArray *retrievedPhotoID = [retrievedPhotoIDDict valueForKeyPath:@"photos.photo"];
             
-            for(NSDictionary *dict in retrievedPhotos){
+            for(NSDictionary *dict in retrievedPhotoID){
                 [_photoIDArray addObject:dict[@"id"]];
             }
-            NSLog(@"%@",self.photoIDArray);
+            
+            NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.getsizes&nojsoncallback=1";
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //[self.reviewTable reloadData];
-            });
+            NSURL *targetURL = [[NSURL alloc] initWithString:
+                                [NSString stringWithFormat:apiURL, [_photoIDArray firstObject]]];
+            // retrieving the first item in the array and the rest can be downloaded in the background.
+            
+            NSURLSession *session = [NSURLSession sharedSession];
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (!error){
+                    NSError *jsonError = nil;
+                    
+                    NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                    
+                    NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"sizes.size"];
+                    
+                    NSURL *imageURL;
+                    for(NSDictionary *dict in retrievedPhotos){
+                        if ([dict[@"label"] isEqualToString:@"Medium"]) {
+                            imageURL = [[NSURL alloc] initWithString:dict[@"url"]];
+                        }
+                    }
+                    
+                    
+                }
+            }];
+            [dataTask resume];
         }
     }];
     [dataTask resume];
