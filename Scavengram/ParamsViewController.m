@@ -122,8 +122,6 @@
                         }
                     }
                     
-//                    ========================================================================
-                    
                     NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.geo.getlocation&nojsoncallback=1";
                     
                     NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[_photoIDArray firstObject]]];
@@ -138,8 +136,6 @@
                             
                             double retrievedPhotoLat = [[retrievedPhotoIDDict valueForKeyPath:@"photo.location.latitude"] doubleValue];
                             double retrievedPhotoLng = [[retrievedPhotoIDDict valueForKeyPath:@"photo.location.longitude"] doubleValue];
-                            
-//                        =======================================================================
                             
                             NSURLSession *session = [NSURLSession sharedSession];
                             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
