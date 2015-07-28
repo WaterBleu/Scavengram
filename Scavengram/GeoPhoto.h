@@ -10,4 +10,6 @@
 
 @interface GeoPhoto : NSObject
 
+- (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng;
+
 @end

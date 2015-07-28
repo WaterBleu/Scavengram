@@ -9,6 +9,8 @@
 #import "ParamsViewController.h"
 #import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
+#import "GeoPhoto.h"
+#import "ClueViewController.h"
 
 @interface ParamsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -20,6 +22,8 @@
 @property (nonatomic) NSString* tag;
 
 @property (nonatomic) CLLocation *currentLocation;
+
+@property (nonatomic) UIActivityIndicatorView *spinner;
 
 @property (nonatomic) NSMutableArray* photoIDArray;
 @property (nonatomic) NSMutableArray* imageArray;
@@ -36,6 +40,7 @@
     self.inputCategory.delegate = self;
     self.tag = _tagArray[0];
     
+    _imageArray = [[NSMutableArray alloc]init];
     _photoIDArray = [[NSMutableArray alloc] init];
 }
 
@@ -43,7 +48,30 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//-(void)runSpinner {
+//    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    
+//    [self addSubview:_spinner];
+//    
+//    [_spinner startAnimating];
+//}
+
+
 - (IBAction)fetchResult:(UIButton *)sender {
+    
+    [self.view setUserInteractionEnabled:NO];
+    
+    _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _spinner.frame = CGRectMake(self.view.center.x-50, self.view.center.y-50, 100, 100);
+    _spinner.backgroundColor = [UIColor grayColor];
+    _spinner.layer.cornerRadius = 10.0;
+    self.view.alpha = 0.7;
+    [self.view addSubview:_spinner];
+    [_spinner startAnimating];
+    
+    
+    
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     
     self.currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
@@ -74,8 +102,7 @@
             
             NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.getsizes&nojsoncallback=1";
 
-            NSURL *targetURL = [[NSURL alloc] initWithString:
-                                [NSString stringWithFormat:apiURL, [_photoIDArray firstObject]]];
+            NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[_photoIDArray firstObject]]];
             // retrieving the first item in the array and the rest can be downloaded in the background.
             
             NSURLSession *session = [NSURLSession sharedSession];
@@ -91,19 +118,60 @@
                     NSURL *imageURL;
                     for(NSDictionary *dict in retrievedPhotos){
                         if ([dict[@"label"] isEqualToString:@"Medium"]) {
-                            imageURL = [[NSURL alloc] initWithString:dict[@"url"]];
+                            imageURL = [[NSURL alloc] initWithString:dict[@"source"]];
                         }
                     }
                     
+//                    ========================================================================
                     
+                    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.geo.getlocation&nojsoncallback=1";
+                    
+                    NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[_photoIDArray firstObject]]];
+                    
+                    NSURLSession *session = [NSURLSession sharedSession];
+                    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+                    NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                        if (!error){
+                            NSError *jsonError = nil;
+                            
+                            NSDictionary *retrievedPhotoIDDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                            
+                            double retrievedPhotoLat = [[retrievedPhotoIDDict valueForKeyPath:@"photo.location.latitude"] doubleValue];
+                            double retrievedPhotoLng = [[retrievedPhotoIDDict valueForKeyPath:@"photo.location.longitude"] doubleValue];
+                            
+//                        =======================================================================
+                            
+                            NSURLSession *session = [NSURLSession sharedSession];
+                            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
+                            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                if (!error){
+                                    
+                                    UIImage *image = [UIImage imageWithData:data];
+                                    GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithImage:image andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
+                                    [_imageArray addObject:geoPhoto];
+                                    
+                                }
+                                
+                                ClueViewController *clueView = [self.storyboard instantiateViewControllerWithIdentifier:@"ClueViewController"];
+                                [clueView setImageArray:_imageArray];
+                                [clueView setPhotoIDArray:_photoIDArray];
+                                [self.spinner stopAnimating];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    self.navigationController.viewControllers = [NSArray arrayWithObject:clueView];
+                                });
+                                
+                            }];
+                            [dataTask resume];
+                        }
+                    }];
+                    [dataTask resume];
                 }
             }];
             [dataTask resume];
         }
     }];
     [dataTask resume];
-
-
 }
 
 #pragma mark - uipickerview item

@@ -10,4 +10,7 @@
 
 @interface ClueViewController : UIViewController
 
+@property (nonatomic) NSMutableArray* photoIDArray;
+@property (nonatomic) NSMutableArray* imageArray;
+
 @end

@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
+#import "ParamsViewController.h"
 
 @interface AppDelegate () <CLLocationManagerDelegate>
 
@@ -18,8 +19,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customizationa after application launch.
     return YES;
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
