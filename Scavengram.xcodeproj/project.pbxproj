@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		641FA2CF08C6A521BB1B5620 /* Pods_Scavengram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD8FE19874EEC89C3177ABE /* Pods_Scavengram.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97A716271B66D01E009096DB /* ParamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716261B66D01E009096DB /* ParamsViewController.m */; };
 		97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716291B66D29B009096DB /* ClueViewController.m */; };
 		97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4336DAACFAD20E24C44FB5EE /* Pods-Scavengram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scavengram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram.debug.xcconfig"; sourceTree = "<group>"; };
+		4A76724CD2F98C4DE7105396 /* Pods-Scavengram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scavengram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram.release.xcconfig"; sourceTree = "<group>"; };
 		97A716251B66D01E009096DB /* ParamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsViewController.h; sourceTree = "<group>"; };
 		97A716261B66D01E009096DB /* ParamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsViewController.m; sourceTree = "<group>"; };
 		97A716281B66D29B009096DB /* ClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClueViewController.h; sourceTree = "<group>"; };
@@ -52,6 +55,7 @@
 		BD69B82B1B66C488006378C9 /* ScavengramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScavengramTests.m; sourceTree = "<group>"; };
 		BD69B8351B66FDC4006378C9 /* GeoPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPhoto.h; sourceTree = "<group>"; };
 		BD69B8361B66FDC4006378C9 /* GeoPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPhoto.m; sourceTree = "<group>"; };
+		BDD8FE19874EEC89C3177ABE /* Pods_Scavengram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scavengram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				641FA2CF08C6A521BB1B5620 /* Pods_Scavengram.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +77,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30F1B8ED3AA51FD7278EA1B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDD8FE19874EEC89C3177ABE /* Pods_Scavengram.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5ACCE2159263BAC272C81461 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4336DAACFAD20E24C44FB5EE /* Pods-Scavengram.debug.xcconfig */,
+				4A76724CD2F98C4DE7105396 /* Pods-Scavengram.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BD69B8031B66C488006378C9 = {
 			isa = PBXGroup;
 			children = (
 				BD69B80E1B66C488006378C9 /* Scavengram */,
 				BD69B8281B66C488006378C9 /* ScavengramTests */,
 				BD69B80D1B66C488006378C9 /* Products */,
+				5ACCE2159263BAC272C81461 /* Pods */,
+				30F1B8ED3AA51FD7278EA1B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,9 +170,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD69B82F1B66C488006378C9 /* Build configuration list for PBXNativeTarget "Scavengram" */;
 			buildPhases = (
+				11CD7537FD6E184DDB512FB9 /* Check Pods Manifest.lock */,
 				BD69B8081B66C488006378C9 /* Sources */,
 				BD69B8091B66C488006378C9 /* Frameworks */,
 				BD69B80A1B66C488006378C9 /* Resources */,
+				6926BEC6CB5514AC100B526E /* Embed Pods Frameworks */,
+				A516EAF2F298C96A2D30D69E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,6 +260,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11CD7537FD6E184DDB512FB9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6926BEC6CB5514AC100B526E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A516EAF2F298C96A2D30D69E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BD69B8081B66C488006378C9 /* Sources */ = {
@@ -371,6 +446,7 @@
 		};
 		BD69B8301B66C488006378C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4336DAACFAD20E24C44FB5EE /* Pods-Scavengram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Scavengram/Info.plist;
@@ -381,6 +457,7 @@
 		};
 		BD69B8311B66C488006378C9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A76724CD2F98C4DE7105396 /* Pods-Scavengram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Scavengram/Info.plist;

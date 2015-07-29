@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-@interface GeoPhoto : NSObject
+@interface GeoPhoto : RLMObject
 
-- (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng;
+- (instancetype)initWithUrl:(NSString*)url andLat:(double)lat andLng:(double)lng;
 
 @end

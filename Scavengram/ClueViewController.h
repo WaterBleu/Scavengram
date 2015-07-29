@@ -12,5 +12,8 @@
 
 @property (nonatomic) NSMutableArray* photoIDArray;
 @property (nonatomic) NSMutableArray* imageArray;
+@property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
+@property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 
 @end
+
