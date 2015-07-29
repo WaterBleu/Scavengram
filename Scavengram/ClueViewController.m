@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "ClueViewController.h"
 #import "GeoPhoto.h"
+#import "ParamsViewController.h"
 
 
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -32,6 +33,28 @@
     [self setClue];
     [self retrieveClue];
     
+    UIBarButtonItem *newGameButton = [[UIBarButtonItem alloc] initWithTitle:@"New Game" style:UIBarButtonItemStylePlain target:self action:@selector(returnToStart:)];
+    
+    self.navigationItem.rightBarButtonItem = newGameButton;
+}
+
+-(void)returnToStart:(id)sender {
+    
+    NSLog(@"Got here");
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Game" message:@"Are you sure you want to restart?" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+        
+        ParamsViewController *paramsView = [self.storyboard instantiateViewControllerWithIdentifier:@"ParamsViewController"];
+        self.navigationController.viewControllers = [NSArray arrayWithObject:paramsView];
+
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * __nonnull action) {
+        //
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
