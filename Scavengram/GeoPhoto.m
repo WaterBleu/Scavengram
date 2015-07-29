@@ -32,6 +32,7 @@ const double proximity = 100;
 
 - (BOOL)isWithinProximityToLocation:(CLLocation*)location{
     CLLocationDistance distance = [location distanceFromLocation:[[CLLocation alloc]initWithLatitude:self.lat longitude:self.lng]];
+    NSLog(@"Distance: %f", distance);
     if (distance < proximity)
         return YES;
     else

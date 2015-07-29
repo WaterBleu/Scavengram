@@ -147,24 +147,12 @@
 }
 
 - (IBAction)checkResult:(UIButton *)sender {
-//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//    picker.delegate = self;
-//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//    
-//    [self presentViewController:picker animated:YES completion:nil];
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
-    GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
-    if([currentClue isWithinProximityToLocation:currentLocation]){
-        if (_currentClueIndex < _geophotoArray.count - 1) {
-            _currentClueIndex++;
-            [self setClue];
-        } else {
-            NSLog(@"Game Over! You Won!!");
-        }
-    }
-    else
-        NSLog(@"Bummer! Not close enough my friend");
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
 }
 
 - (void) setClue{
@@ -185,17 +173,32 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    //_submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
+    _submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
-    if([currentClue isWithinProximityToLocation:currentLocation])
-        NSLog(@"Correct! Now the next clue");
-    else
+    if([currentClue isWithinProximityToLocation:currentLocation]){
+        if (_currentClueIndex < _geophotoArray.count - 1) {
+            _currentClueIndex++;
+            [self setClue];
+        } else {
+            NSLog(@"Game Over! You Won!!");
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Over! You Won!!" message:@"Let's start a new game!" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+                ParamsViewController *paramsView = [self.storyboard instantiateViewControllerWithIdentifier:@"ParamsViewController"];
+                self.navigationController.viewControllers = [NSArray arrayWithObject:paramsView];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    } else {
         NSLog(@"Bummer! Not close enough my friend");
-    
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Try Again" message:@"That was not close enough!" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+            //
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 
