@@ -143,12 +143,8 @@
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 GeoPhoto *geoPhoto = nil;
                                 if (!error){
-                                    
-//                                    UIImage *image = [UIImage imageWithData:data];
-                                    
                                     geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     [_imageArray addObject:geoPhoto];
-                                    
                                 }
                                 
                                 ClueViewController *clueView = [self.storyboard instantiateViewControllerWithIdentifier:@"ClueViewController"];

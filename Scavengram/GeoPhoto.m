@@ -13,9 +13,6 @@
 const double proximity = 100;
 @interface GeoPhoto ()
 
-@property (nonatomic) UIImage *image;
-@property (nonatomic) double lat;
-@property (nonatomic) double lng;
 @property (nonatomic) NSString *url;
 
 @end
