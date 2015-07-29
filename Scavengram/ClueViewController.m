@@ -11,6 +11,7 @@
 #import "ClueViewController.h"
 #import "GeoPhoto.h"
 #import "ParamsViewController.h"
+#import "CluesCollectionViewCell.h"
 
 
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -169,6 +170,13 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"segueToCluesCV"]) {
+        CluesCollectionViewCell *vc = segue.destinationViewController;
+//        vc.toDoItem = self.object;
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{

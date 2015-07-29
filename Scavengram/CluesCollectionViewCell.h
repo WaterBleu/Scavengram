@@ -10,4 +10,6 @@
 
 @interface CluesCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *geoPhotoImageView;
+
 @end
