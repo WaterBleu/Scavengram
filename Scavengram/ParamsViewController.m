@@ -43,6 +43,11 @@
     
     _imageArray = [[NSMutableArray alloc]init];
     _photoIDArray = [[NSMutableArray alloc] init];
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm deleteAllObjects];
+    [realm commitWriteTransaction];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +62,7 @@
 //    
 //    [_spinner startAnimating];
 //}
+
 
 
 - (IBAction)fetchResult:(UIButton *)sender {
