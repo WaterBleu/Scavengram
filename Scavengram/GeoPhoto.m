@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "GeoPhoto.h"
 
+const double proximity = 100;
 @interface GeoPhoto ()
 
 @property (nonatomic) UIImage *image;
-@property (nonatomic) double lat;
-@property (nonatomic) double lng;
 
 @end
 
@@ -29,5 +29,15 @@
     }
     return self;
 }
+
+- (BOOL)isWithinProximityToLocation:(CLLocation*)location{
+    CLLocationDistance distance = [location distanceFromLocation:[[CLLocation alloc]initWithLatitude:self.lat longitude:self.lng]];
+    if (distance < proximity)
+        return YES;
+    else
+        return NO;
+}
+
+
 
 @end

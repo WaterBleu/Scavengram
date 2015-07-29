@@ -19,12 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter scavenger zone radius (Ex. 5km)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NOJ-65-iw4">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter scavenger zone radius (Ex. 5km)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NOJ-65-iw4">
                                 <rect key="frame" x="16" y="28" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number of locations to guess" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pnH-fO-maN">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter number of locations to guess" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pnH-fO-maN">
                                 <rect key="frame" x="16" y="66" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -51,9 +51,6 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="389" width="75" height="21"/>
-                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -160,6 +157,9 @@
                                         <include reference="QDP-qp-Zwz"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="checkResult:" destination="IYg-xz-n4H" eventType="touchUpInside" id="Cys-At-Y9Q"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9To-sc-BUz">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -182,6 +182,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <action selector="presentCluesCollectionView:" destination="IYg-xz-n4H" eventType="touchUpInside" id="sMq-b6-erY"/>
                                     <segue destination="o47-JB-gFn" kind="show" identifier="segueToCluesCV" id="XD6-z1-RTC"/>
                                 </connections>
                             </button>
@@ -272,7 +273,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Yqw-Ny-SyA" customClass="CluesCollectionViewCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ClueCell" id="Yqw-Ny-SyA" customClass="CluesCollectionViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

@@ -13,11 +13,11 @@
 		97A716301B66D2F8009096DB /* CluesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */; };
 		BD69B8121B66C488006378C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8111B66C488006378C9 /* main.m */; };
 		BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8141B66C488006378C9 /* AppDelegate.m */; };
-		BD69B81B1B66C488006378C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD69B8191B66C488006378C9 /* Main.storyboard */; };
 		BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81C1B66C488006378C9 /* Images.xcassets */; };
 		BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81E1B66C488006378C9 /* LaunchScreen.xib */; };
 		BD69B82C1B66C488006378C9 /* ScavengramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B82B1B66C488006378C9 /* ScavengramTests.m */; };
 		BD69B8371B66FDC4006378C9 /* GeoPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8361B66FDC4006378C9 /* GeoPhoto.m */; };
+		BD69B8411B683E3F006378C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD69B83F1B683E3F006378C9 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		BD69B8111B66C488006378C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BD69B8131B66C488006378C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BD69B8141B66C488006378C9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BD69B81A1B66C488006378C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BD69B81C1B66C488006378C9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BD69B81F1B66C488006378C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BD69B8251B66C488006378C9 /* ScavengramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScavengramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +51,7 @@
 		BD69B82B1B66C488006378C9 /* ScavengramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScavengramTests.m; sourceTree = "<group>"; };
 		BD69B8351B66FDC4006378C9 /* GeoPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPhoto.h; sourceTree = "<group>"; };
 		BD69B8361B66FDC4006378C9 /* GeoPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPhoto.m; sourceTree = "<group>"; };
+		BD69B8401B683E3F006378C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +105,8 @@
 				97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */,
 				BD69B8351B66FDC4006378C9 /* GeoPhoto.h */,
 				BD69B8361B66FDC4006378C9 /* GeoPhoto.m */,
-				BD69B8191B66C488006378C9 /* Main.storyboard */,
 				BD69B81C1B66C488006378C9 /* Images.xcassets */,
+				BD69B83F1B683E3F006378C9 /* Main.storyboard */,
 				BD69B81E1B66C488006378C9 /* LaunchScreen.xib */,
 				BD69B80F1B66C488006378C9 /* Supporting Files */,
 			);
@@ -219,7 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD69B81B1B66C488006378C9 /* Main.storyboard in Resources */,
+				BD69B8411B683E3F006378C9 /* Main.storyboard in Resources */,
 				BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */,
 				BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */,
 			);
@@ -268,20 +268,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BD69B8191B66C488006378C9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BD69B81A1B66C488006378C9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BD69B81E1B66C488006378C9 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BD69B81F1B66C488006378C9 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		BD69B83F1B683E3F006378C9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD69B8401B683E3F006378C9 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

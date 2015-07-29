@@ -6,10 +6,16 @@
 //  Copyright (c) 2015 Jeff Huang. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
 #import "ClueViewController.h"
 #import "GeoPhoto.h"
 
-@interface ClueViewController ()
+
+@interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (nonatomic) UIImage* submittedImage;
+@property (nonatomic) int currentClueIndex;
 
 @end
 
@@ -88,5 +94,41 @@
         }
     }
 }
+- (IBAction)presentCluesCollectionView:(UIButton *)sender {
+}
+- (IBAction)checkResult:(UIButton *)sender {
+//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//    picker.delegate = self;
+//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    
+//    [self presentViewController:picker animated:YES completion:nil];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
+    GeoPhoto *currentClue = _imageArray[_currentClueIndex];
+    if([currentClue isWithinProximityToLocation:currentLocation])
+        NSLog(@"Correct! Now the next clue");
+    else
+        NSLog(@"Bummer! Not close enough my friend");
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    //_submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
+    GeoPhoto *currentClue = _imageArray[_currentClueIndex];
+    if([currentClue isWithinProximityToLocation:currentLocation])
+        NSLog(@"Correct! Now the next clue");
+    else
+        NSLog(@"Bummer! Not close enough my friend");
+    
+    
+}
+
 
 @end

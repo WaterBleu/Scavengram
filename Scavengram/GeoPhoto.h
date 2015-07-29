@@ -10,6 +10,9 @@
 
 @interface GeoPhoto : NSObject
 
-- (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng;
+@property (nonatomic) double lat;
+@property (nonatomic) double lng;
 
+- (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng;
+- (BOOL)isWithinProximityToLocation:(CLLocation*)location;
 @end
