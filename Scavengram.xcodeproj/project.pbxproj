@@ -12,6 +12,7 @@
 		97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716291B66D29B009096DB /* ClueViewController.m */; };
 		97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */; };
 		97A716301B66D2F8009096DB /* CluesCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */; };
+		BD34FFC11B69795B0036DD30 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = BD34FFC01B69795B0036DD30 /* Util.m */; };
 		BD69B8121B66C488006378C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8111B66C488006378C9 /* main.m */; };
 		BD69B8151B66C488006378C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8141B66C488006378C9 /* AppDelegate.m */; };
 		BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81C1B66C488006378C9 /* Images.xcassets */; };
@@ -42,6 +43,8 @@
 		97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CluesCollectionViewController.m; sourceTree = "<group>"; };
 		97A7162E1B66D2F8009096DB /* CluesCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CluesCollectionViewCell.h; sourceTree = "<group>"; };
 		97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CluesCollectionViewCell.m; sourceTree = "<group>"; };
+		BD34FFBF1B69795B0036DD30 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		BD34FFC01B69795B0036DD30 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		BD69B80C1B66C488006378C9 /* Scavengram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scavengram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD69B8101B66C488006378C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD69B8111B66C488006378C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				97A716261B66D01E009096DB /* ParamsViewController.m */,
 				97A716281B66D29B009096DB /* ClueViewController.h */,
 				97A716291B66D29B009096DB /* ClueViewController.m */,
+				BD34FFBF1B69795B0036DD30 /* Util.h */,
+				BD34FFC01B69795B0036DD30 /* Util.m */,
 				97A7162B1B66D2BA009096DB /* CluesCollectionViewController.h */,
 				97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */,
 				97A7162E1B66D2F8009096DB /* CluesCollectionViewCell.h */,
@@ -321,6 +326,7 @@
 				97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */,
 				BD69B8121B66C488006378C9 /* main.m in Sources */,
 				97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */,
+				BD34FFC11B69795B0036DD30 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

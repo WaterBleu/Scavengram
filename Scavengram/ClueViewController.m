@@ -8,9 +8,11 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
+#import "ParamsViewController.h"
 #import "ClueViewController.h"
 #import "GeoPhoto.h"
-#import "ParamsViewController.h"
+#import "Util.h"
+
 
 
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -104,23 +106,13 @@
                             
                             NSURLSession *session = [NSURLSession sharedSession];
                             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
-                            NSURLSessionDownloadTask *dataTask = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 if(!error){
-//                                    NSError *fileError = nil;
-//                                    NSFileManager *fileManager = [NSFileManager defaultManager];
-//                                    
-//                                    NSURL *newLocation = location.URLByDeletingPathExtension;
-//                                    newLocation = [newLocation URLByAppendingPathExtension:@"jpeg"];
-//                                    
-//                                    [fileManager moveItemAtURL:location toURL:newLocation error:&fileError];
-                                    
-                                    NSData *data = [NSData dataWithContentsOfURL:location];
-                                    UIImage *image = [UIImage imageWithData:data];
-                                    
+                                    [Util writeToFile:data andFileName:[NSString stringWithFormat:@"%d", i]];
+
                                     GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     
                                     [_geophotoArray addObject:geoPhoto];
-                                    [_imageArray addObject:image];
                                     NSLog(@"Downloading in background! %dth Geophoto added, %@",i , geoPhoto);
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -169,7 +161,7 @@
 
 - (void) setClue{
     _currentGeoPhoto = self.geophotoArray[_currentClueIndex];
-    self.mainImageView.image = self.imageArray[_currentClueIndex];
+    self.mainImageView.image = [UIImage imageWithData:[Util getImageData:_currentClueIndex]];
     NSString *lat = _currentGeoPhoto[@"lat"];
     NSString *lng = _currentGeoPhoto[@"lng"];
     

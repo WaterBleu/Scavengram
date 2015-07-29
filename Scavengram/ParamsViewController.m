@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Jeff Huang. All rights reserved.
 //
 
-#import "ParamsViewController.h"
-#import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
-#import "GeoPhoto.h"
-#import "ClueViewController.h"
 #import <Realm/Realm.h>
+#import "AppDelegate.h"
+#import "ParamsViewController.h"
+#import "ClueViewController.h"
+#import "GeoPhoto.h"
+#import "Util.h"
+
+
 
 @interface ParamsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -27,7 +30,6 @@
 @property (nonatomic) UIActivityIndicatorView *spinner;
 
 @property (nonatomic) NSMutableArray* photoIDArray;
-@property (nonatomic) NSMutableArray* imageArray;
 @property (nonatomic) NSMutableArray* geophotoArray;
 @end
 
@@ -42,7 +44,6 @@
     self.inputCategory.delegate = self;
     self.tag = _tagArray[0];
     
-    _imageArray = [[NSMutableArray alloc]init];
     _photoIDArray = [[NSMutableArray alloc] init];
     _geophotoArray = [[NSMutableArray alloc] init];
     
@@ -149,16 +150,14 @@
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 GeoPhoto *geoPhoto = nil;
                                 if (!error){
-                                    UIImage *image = [[UIImage alloc] initWithData:data];
+                                    [Util writeToFile:data andFileName:@"0"];
                                     geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     [_geophotoArray addObject:geoPhoto];
-                                    [_imageArray addObject:image];
                                 }
                                 
                                 ClueViewController *clueView = [self.storyboard instantiateViewControllerWithIdentifier:@"ClueViewController"];
                                 [clueView setGeophotoArray:_geophotoArray];
                                 [clueView setPhotoIDArray:_photoIDArray];
-                                [clueView setImageArray:_imageArray];
                                 [self.spinner stopAnimating];
                                 
                                 dispatch_async(dispatch_get_main_queue(), ^{
