@@ -28,6 +28,7 @@
 
 @property (nonatomic) NSMutableArray* photoIDArray;
 @property (nonatomic) NSMutableArray* imageArray;
+@property (nonatomic) NSMutableArray* geophotoArray;
 @end
 
 #define medPhotoIndex = 5;
@@ -43,6 +44,7 @@
     
     _imageArray = [[NSMutableArray alloc]init];
     _photoIDArray = [[NSMutableArray alloc] init];
+    _geophotoArray = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,8 +72,6 @@
     self.view.alpha = 0.7;
     [self.view addSubview:_spinner];
     [_spinner startAnimating];
-    
-    
     
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     
@@ -143,13 +143,16 @@
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 GeoPhoto *geoPhoto = nil;
                                 if (!error){
+                                    UIImage *image = [[UIImage alloc] initWithData:data];
                                     geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
-                                    [_imageArray addObject:geoPhoto];
+                                    [_geophotoArray addObject:geoPhoto];
+                                    [_imageArray addObject:image];
                                 }
                                 
                                 ClueViewController *clueView = [self.storyboard instantiateViewControllerWithIdentifier:@"ClueViewController"];
-                                [clueView setImageArray:_imageArray];
+                                [clueView setGeophotoArray:_geophotoArray];
                                 [clueView setPhotoIDArray:_photoIDArray];
+                                [clueView setImageArray:_imageArray];
                                 [self.spinner stopAnimating];
                                 
                                 dispatch_async(dispatch_get_main_queue(), ^{

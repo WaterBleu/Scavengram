@@ -15,6 +15,8 @@
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic) UIImage* submittedImage;
+
+@property (nonatomic) GeoPhoto *currentGeoPhoto;
 @property (nonatomic) int currentClueIndex;
 
 @end
@@ -25,16 +27,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSLog(@"Inside clue view!");
+    _currentClueIndex = 0;
     
-    GeoPhoto *image = self.imageArray[0];
-    NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:image[@"url"]]];
-    self.mainImageView.image = [UIImage imageWithData: imageData];
-    NSString *lat = image[@"lat"];
-    NSString *lng = image[@"lng"];
-    NSLog(@"https://www.google.ca/maps/dir/%@,%@//@%@,%@,15z",lat,lng,lat,lng);
-    self.mainLabel.text = @"Check log for location";
-    
-//    [self.mainImageView setImage:image];
+    [self setClue];
     [self retrieveClue];
     
 }
@@ -88,10 +83,21 @@
                             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
                             NSURLSessionDownloadTask *dataTask = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                 if(!error){
-                                    UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@", location]];
+//                                    NSError *fileError = nil;
+//                                    NSFileManager *fileManager = [NSFileManager defaultManager];
+//                                    
+//                                    NSURL *newLocation = location.URLByDeletingPathExtension;
+//                                    newLocation = [newLocation URLByAppendingPathExtension:@"jpeg"];
+//                                    
+//                                    [fileManager moveItemAtURL:location toURL:newLocation error:&fileError];
+                                    
+                                    NSData *data = [NSData dataWithContentsOfURL:location];
+                                    UIImage *image = [UIImage imageWithData:data];
+                                    
                                     GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     
-                                    [_imageArray addObject:geoPhoto];
+                                    [_geophotoArray addObject:geoPhoto];
+                                    [_imageArray addObject:image];
                                     NSLog(@"Downloading in background! %dth Geophoto added, %@",i , geoPhoto);
                                     
                                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -116,6 +122,7 @@
 }
 - (IBAction)presentCluesCollectionView:(UIButton *)sender {
 }
+
 - (IBAction)checkResult:(UIButton *)sender {
 //    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 //    picker.delegate = self;
@@ -124,12 +131,30 @@
 //    [self presentViewController:picker animated:YES completion:nil];
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
-    GeoPhoto *currentClue = _imageArray[_currentClueIndex];
-    if([currentClue isWithinProximityToLocation:currentLocation])
-        NSLog(@"Correct! Now the next clue");
+    GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
+    if([currentClue isWithinProximityToLocation:currentLocation]){
+        if (_currentClueIndex < _geophotoArray.count - 1) {
+            _currentClueIndex++;
+            [self setClue];
+        } else {
+            NSLog(@"Game Over! You Won!!");
+        }
+    }
     else
         NSLog(@"Bummer! Not close enough my friend");
 }
+
+- (void) setClue{
+    _currentGeoPhoto = self.geophotoArray[_currentClueIndex];
+    self.mainImageView.image = self.imageArray[_currentClueIndex];
+    NSString *lat = _currentGeoPhoto[@"lat"];
+    NSString *lng = _currentGeoPhoto[@"lng"];
+    
+    NSLog(@"https://www.google.ca/maps/dir/%@,%@//@%@,%@,15z",lat,lng,lat,lng);
+    self.mainLabel.text = @"Check log for location";
+}
+
+#pragma mark - Photo function
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -141,7 +166,7 @@
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
-    GeoPhoto *currentClue = _imageArray[_currentClueIndex];
+    GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
     if([currentClue isWithinProximityToLocation:currentLocation])
         NSLog(@"Correct! Now the next clue");
     else
