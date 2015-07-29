@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Realm/Realm.h>
 
-@interface GeoPhoto : NSObject
+@interface GeoPhoto : RLMObject
 
 @property (nonatomic) double lat;
 @property (nonatomic) double lng;
 
+- (instancetype)initWithUrl:(NSString*)url andLat:(double)lat andLng:(double)lng;
 - (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng;
 - (BOOL)isWithinProximityToLocation:(CLLocation*)location;
 @end

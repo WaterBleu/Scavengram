@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "GeoPhoto.h"
 #import "ClueViewController.h"
+#import <Realm/Realm.h>
 
 @interface ParamsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -140,10 +141,12 @@
                             NSURLSession *session = [NSURLSession sharedSession];
                             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                GeoPhoto *geoPhoto = nil;
                                 if (!error){
                                     
-                                    UIImage *image = [UIImage imageWithData:data];
-                                    GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithImage:image andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
+//                                    UIImage *image = [UIImage imageWithData:data];
+                                    
+                                    geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     [_imageArray addObject:geoPhoto];
                                     
                                 }
@@ -154,6 +157,12 @@
                                 [self.spinner stopAnimating];
                                 
                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                    
+                                    RLMRealm *realm = [RLMRealm defaultRealm];
+                                    [realm beginWriteTransaction];
+                                    [realm addObject:geoPhoto];
+                                    [realm commitWriteTransaction];
+                                    
                                     self.navigationController.viewControllers = [NSArray arrayWithObject:clueView];
                                 });
                                 
@@ -184,6 +193,11 @@
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if(pickerView == self.inputCategory)
+    {
+        [self.inputRadius resignFirstResponder];
+        [self.inputNumResult resignFirstResponder];
+    }
     switch (row) {
         case 0:
             self.tag = @"Restaurant";

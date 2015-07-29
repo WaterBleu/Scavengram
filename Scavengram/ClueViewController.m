@@ -25,6 +25,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSLog(@"Inside clue view!");
+    
+    GeoPhoto *image = self.imageArray[0];
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:image[@"url"]]];
+    self.mainImageView.image = [UIImage imageWithData: imageData];
+    NSString *lat = image[@"lat"];
+    NSString *lng = image[@"lng"];
+    NSLog(@"https://www.google.ca/maps/dir/%@,%@//@%@,%@,15z",lat,lng,lat,lng);
+    self.mainLabel.text = @"Check log for location";
+    
+//    [self.mainImageView setImage:image];
     [self retrieveClue];
     
 }
@@ -79,9 +89,19 @@
                             NSURLSessionDownloadTask *dataTask = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
                                 if(!error){
                                     UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@", location]];
-                                    GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithImage:image andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
+                                    GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
+                                    
                                     [_imageArray addObject:geoPhoto];
-                                    NSLog(@"Downloading in background! %dth  Geophoto added, %@",i , geoPhoto);
+                                    NSLog(@"Downloading in background! %dth Geophoto added, %@",i , geoPhoto);
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        
+                                        RLMRealm *realm = [RLMRealm defaultRealm];
+                                        [realm beginWriteTransaction];
+                                        [realm addObject:geoPhoto];
+                                        [realm commitWriteTransaction];
+                                        
+                                    });
                                 }
                             }];
                             [dataTask resume];

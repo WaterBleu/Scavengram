@@ -14,16 +14,19 @@ const double proximity = 100;
 @interface GeoPhoto ()
 
 @property (nonatomic) UIImage *image;
+@property (nonatomic) double lat;
+@property (nonatomic) double lng;
+@property (nonatomic) NSString *url;
 
 @end
 
 @implementation GeoPhoto
 
-- (instancetype)initWithImage:(UIImage*)image andLat:(double)lat andLng:(double)lng
+- (instancetype)initWithUrl:(NSString*)url andLat:(double)lat andLng:(double)lng
 {
     self = [super init];
     if (self) {
-        self.image = image;
+        self.url = url;
         self.lat = lat;
         self.lng = lng;
     }
