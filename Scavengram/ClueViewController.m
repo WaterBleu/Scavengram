@@ -14,11 +14,9 @@
 #import "GeoPhoto.h"
 #import "Util.h"
 
-
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic) UIImage* submittedImage;
-
 @property (nonatomic) GeoPhoto *currentGeoPhoto;
 @property (nonatomic) int currentClueIndex;
 
@@ -38,7 +36,6 @@
     UIBarButtonItem *newGameButton = [[UIBarButtonItem alloc] initWithTitle:@"New Game" style:UIBarButtonItemStylePlain target:self action:@selector(returnToStart:)];
     
     self.navigationItem.rightBarButtonItem = newGameButton;
-    self.navigationItem.title = [NSString stringWithFormat:@"Clue #%d", (self.currentClueIndex + 1)];
     
     UIBarButtonItem *newBackButton =
     [[UIBarButtonItem alloc] initWithTitle:@"Back"
@@ -79,7 +76,6 @@
             //
         }]];
     }
-    
     [self presentViewController:alert animated:YES completion:nil];
 
 }
@@ -160,8 +156,6 @@
         }
     }
 }
-- (IBAction)presentCluesCollectionView:(UIButton *)sender {
-}
 
 - (IBAction)checkResult:(UIButton *)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -169,10 +163,10 @@
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:nil];
-    
 }
 
 - (void) setClue{
+    self.navigationItem.title = [NSString stringWithFormat:@"Clue #%d", (self.currentClueIndex + 1)];
     _currentGeoPhoto = self.geophotoArray[_currentClueIndex];
     self.mainImageView.image = [UIImage imageWithData:[Util getImageData:[NSString stringWithFormat:@"%d", _currentClueIndex] withFolderName:@"Clues"]];
     NSString *lat = _currentGeoPhoto[@"lat"];
@@ -211,7 +205,14 @@
     if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;
-            [self setClue];
+
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Way to go!" message:@"Here's your next clue!" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+                [self setClue];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
         } else {
             NSLog(@"Game Over! You Won!!");
             [self returnToStart:@"gameWon"];

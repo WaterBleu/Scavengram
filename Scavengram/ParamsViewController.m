@@ -14,8 +14,6 @@
 #import "GeoPhoto.h"
 #import "Util.h"
 
-
-
 @interface ParamsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *inputRadius;
@@ -27,10 +25,11 @@
 
 @property (nonatomic) CLLocation *currentLocation;
 
-@property (nonatomic) UIActivityIndicatorView *spinner;
-
 @property (nonatomic) NSMutableArray* photoIDArray;
 @property (nonatomic) NSMutableArray* geophotoArray;
+
+@property (nonatomic) UIActivityIndicatorView *spinner;
+
 @end
 
 #define medPhotoIndex = 5;
@@ -59,16 +58,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//-(void)runSpinner {
-//    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    
-//    [self addSubview:_spinner];
-//    
-//    [_spinner startAnimating];
-//}
-
-
 
 - (IBAction)fetchResult:(UIButton *)sender {
     
@@ -239,15 +228,5 @@
             break;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
