@@ -66,6 +66,8 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+        //new game confirmed and clear out session.
+        [Util removeSession];
         
         ParamsViewController *paramsView = [self.storyboard instantiateViewControllerWithIdentifier:@"ParamsViewController"];
         self.navigationController.viewControllers = [NSArray arrayWithObject:paramsView];
@@ -197,9 +199,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:NULL];
     _submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
+    
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    [appDelegate startLocationManager];
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
+    
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
+    
     if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;

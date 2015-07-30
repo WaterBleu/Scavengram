@@ -12,5 +12,6 @@
 
 + (void)writeToFile:(NSData*)data withFolderName:(NSString*)folderName andFileName:(NSString *)fileName;
 + (NSData*)getImageData:(NSString*)fileName withFolderName:(NSString*)folderName;
++ (BOOL)removeSession;
 
 @end

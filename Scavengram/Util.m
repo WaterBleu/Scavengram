@@ -15,9 +15,14 @@
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
-+ (NSString*)getStorageDirectory{
++ (NSString*)getSession{
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSString *sessionString = [appDelegate.sessionID UUIDString];
+    return sessionString;
+}
+
++ (NSString*)getStorageDirectory{
+    NSString *sessionString = [self getSession];
     
     NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *bundleName = [self getProductName];
@@ -54,4 +59,10 @@
     
     return data;
 }
+
++ (BOOL)removeSession{
+    NSString *targetDirectory = [self getStorageDirectory];
+    return [[NSFileManager defaultManager] removeItemAtPath:targetDirectory error:nil];
+}
+
 @end
