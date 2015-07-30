@@ -190,9 +190,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:NULL];
     _submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
+    
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    [appDelegate startLocationManager];
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
+    
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
+    
     if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;

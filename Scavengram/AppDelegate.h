@@ -16,6 +16,8 @@
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) NSUUID *sessionID;
 
+- (void)startLocationManager;
+
 @end
 
 
