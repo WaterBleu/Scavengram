@@ -87,6 +87,18 @@
     
     self.currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
+    // ========================================================
+    NSString *alertMessage = [NSString stringWithFormat:@"LAT: %f, LONG: %f", appDelegate.currentLocation.coordinate.latitude, appDelegate.currentLocation.coordinate.longitude];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Location!" message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+        
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    // ========================================================
+    
+    
     NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     
     NSString *radiusString = @"";

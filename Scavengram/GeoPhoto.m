@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "GeoPhoto.h"
 
-const double proximity = 100;
+const double proximity = 10;
 @interface GeoPhoto ()
 
 @property (nonatomic) NSString *url;
@@ -37,6 +37,11 @@ const double proximity = 100;
         return YES;
     else
         return NO;
+}
+
+-(NSString*)findDistance:(CLLocation*)location {
+    CLLocationDistance distance = [location distanceFromLocation:[[CLLocation alloc]initWithLatitude:self.lat longitude:self.lng]];
+    return [NSString stringWithFormat:@"%f", distance];
 }
 
 

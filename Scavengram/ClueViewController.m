@@ -166,7 +166,7 @@
 - (IBAction)checkResult:(UIButton *)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:nil];
     
@@ -180,6 +180,7 @@
     
     NSLog(@"https://www.google.ca/maps/dir/%@,%@//@%@,%@,15z",lat,lng,lat,lng);
     self.mainLabel.text = @"Check log for location";
+    self.mainLabel.text = @"";
 }
 
 #pragma mark - Photo function
@@ -206,6 +207,8 @@
     
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
     
+    self.mainLabel.text = [NSString stringWithFormat:@"Distance from Clue: %@", [currentClue findDistance:currentLocation]];
+    
     if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;
@@ -218,7 +221,7 @@
         NSLog(@"Bummer! Not close enough my friend");
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Try Again" message:@"That was not close enough!" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
-            //
+            // Trying again!
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     }

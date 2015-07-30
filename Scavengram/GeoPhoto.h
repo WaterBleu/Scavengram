@@ -18,4 +18,5 @@
 - (instancetype)initWithUrl:(NSString*)url andLat:(double)lat andLng:(double)lng;
 
 - (BOOL)isWithinProximityToLocation:(CLLocation*)location;
+- (NSString*)findDistance:(CLLocation*)location;
 @end
