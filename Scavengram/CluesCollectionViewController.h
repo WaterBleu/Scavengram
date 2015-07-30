@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CluesCollectionViewController : UICollectionViewController
+@interface CluesCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (strong, nonatomic) IBOutlet UICollectionView *itemView;
 
 @end

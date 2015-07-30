@@ -86,12 +86,23 @@
     
     NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     
+    NSString *radiusString = @"";
+    
+    if ([_inputRadius.text doubleValue] > 5.0) {
+        radiusString = @"5";
+    } else if ([_inputRadius.text doubleValue] < 0.5) {
+        radiusString = @"0.5";
+    } else {
+        radiusString = _inputRadius.text;
+    }
+    NSLog(@"Radius Input: %@", radiusString);
+    
     NSURL *targetURL = [[NSURL alloc] initWithString:
                         [NSString stringWithFormat:apiURL
                          , _tag
                          , _currentLocation.coordinate.latitude
                          , _currentLocation.coordinate.longitude
-                         , _inputRadius.text
+                         , radiusString
                          , _inputNumResult.text]];
 
     NSURLSession *session = [NSURLSession sharedSession];

@@ -10,9 +10,9 @@
 #import "AppDelegate.h"
 #import "ParamsViewController.h"
 #import "ClueViewController.h"
+#import "CluesCollectionViewCell.h"
 #import "GeoPhoto.h"
 #import "Util.h"
-
 
 
 @interface ClueViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -41,22 +41,36 @@
 }
 
 -(void)returnToStart:(id)sender {
-    
     NSLog(@"Got here");
+    NSString *alertMessage;
+    NSString *alertTitle;
+    BOOL hasWon;
+    if ([sender isEqual:@"gameWon"]) {
+        hasWon = YES;
+        alertTitle = @"Game Over! You Won!!";
+        alertMessage = @"Let's start a new game!";
+    }
+    else{
+        alertTitle = @"New Game";
+        alertMessage = @"Are you sure you want to restart?";
+    }
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Game" message:@"Are you sure you want to restart?" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
         
         ParamsViewController *paramsView = [self.storyboard instantiateViewControllerWithIdentifier:@"ParamsViewController"];
         self.navigationController.viewControllers = [NSArray arrayWithObject:paramsView];
 
     }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * __nonnull action) {
-        //
-    }]];
+    if(!hasWon){
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * __nonnull action) {
+            //
+        }]];
+    }
     
     [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,19 +158,7 @@
 //    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 //    
 //    [self presentViewController:picker animated:YES completion:nil];
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
-    GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
-    if([currentClue isWithinProximityToLocation:currentLocation]){
-        if (_currentClueIndex < _geophotoArray.count - 1) {
-            _currentClueIndex++;
-            [self setClue];
-        } else {
-            NSLog(@"Game Over! You Won!!");
-        }
-    }
-    else
-        NSLog(@"Bummer! Not close enough my friend");
+    [self returnToStart:@"gameWon"];
 }
 
 - (void) setClue{
@@ -175,19 +177,35 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"segueToCluesCV"]) {
+        CluesCollectionViewCell *vc = segue.destinationViewController;
+//        vc.toDoItem = self.object;
+    }
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    //_submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
+    _submittedImage = (UIImage*)[info objectForKey:UIImagePickerControllerOriginalImage];
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
-    if([currentClue isWithinProximityToLocation:currentLocation])
-        NSLog(@"Correct! Now the next clue");
-    else
+    if([currentClue isWithinProximityToLocation:currentLocation]){
+        if (_currentClueIndex < _geophotoArray.count - 1) {
+            _currentClueIndex++;
+            [self setClue];
+        } else {
+            NSLog(@"Game Over! You Won!!");
+            [self returnToStart:self];
+        }
+    } else {
         NSLog(@"Bummer! Not close enough my friend");
-    
-    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Try Again" message:@"That was not close enough!" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+            //
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 

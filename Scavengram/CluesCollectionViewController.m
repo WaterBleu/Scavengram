@@ -7,25 +7,105 @@
 //
 
 #import "CluesCollectionViewController.h"
+#import "CluesCollectionViewCell.h"
+#import "GeoPhoto.h"
 
-@interface CluesCollectionViewController ()
+@interface CluesCollectionViewController () {
+
+    NSMutableArray *picsArray;
+    NSMutableArray *photoIDArray;
+    
+}
 
 @end
 
 @implementation CluesCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"ClueCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+}
+
+- (void)fetchResult {
     
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     
-    // Do any additional setup after loading the view.
+    NSURL *targetURL = [[NSURL alloc] initWithString:
+                        [NSString stringWithFormat:apiURL
+                         , @"" //current tag
+                         , @"" //main image's lat
+                         , @"" //main image's lng
+                         , @"0.3"
+                         , @"9"]];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+    NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error){
+            NSError *jsonError = nil;
+            
+            NSDictionary *retrievedPhotoIDDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            
+            NSArray *retrievedPhotoID = [retrievedPhotoIDDict valueForKeyPath:@"photos.photo"];
+            
+            for(NSDictionary *dict in retrievedPhotoID){
+                [photoIDArray addObject:dict[@"id"]];
+            }
+            
+            NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.getsizes&nojsoncallback=1";
+            
+            NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[photoIDArray firstObject]]];
+            // retrieving the first item in the array and the rest can be downloaded in the background.
+            
+            NSURLSession *session = [NSURLSession sharedSession];
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (!error){
+                    NSError *jsonError = nil;
+                    
+                    NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                    
+                    NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"sizes.size"];
+                    
+                    NSURL *imageURL;
+                    for(NSDictionary *dict in retrievedPhotos){
+                        if ([dict[@"label"] isEqualToString:@"Medium"]) {
+                            imageURL = [[NSURL alloc] initWithString:dict[@"source"]];
+                        }
+                    }
+                    
+                    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.geo.getlocation&nojsoncallback=1";
+                    
+                    NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[photoIDArray firstObject]]];
+                    
+                    NSURLSession *session = [NSURLSession sharedSession];
+                    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+                    NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                        if (!error){
+                            NSError *jsonError = nil;
+                            
+                            NSURLSession *session = [NSURLSession sharedSession];
+                            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
+                            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                if (!error){
+                                    UIImage *image = [[UIImage alloc] initWithData:data];
+                                    [picsArray addObject:image];
+                                }
+                                
+                                
+                            }];
+                            [dataTask resume];
+                        }
+                    }];
+                    [dataTask resume];
+                }
+            }];
+            [dataTask resume];
+        }
+    }];
+    [dataTask resume];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,22 +126,23 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete method implementation -- Return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete method implementation -- Return the number of items in the section
-    return 0;
+    return [picsArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
+    GeoPhoto *eachImage = [picsArray objectAtIndex:indexPath.row];
+    CluesCollectionViewCell *cell = [self.itemView dequeueReusableCellWithReuseIdentifier:@"ClueCell" forIndexPath:indexPath];
+    // [cell.geoPhotoImageView setImage:eachImage];
     
     return cell;
+    
 }
 
 #pragma mark <UICollectionViewDelegate>
