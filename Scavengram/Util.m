@@ -75,6 +75,14 @@
         return item.count > 0;
 }
 
++ (int)getNumOfHints{
+    NSError *fetchError = nil;
+    
+    NSString *targetDirectory = [[self getStorageDirectory] stringByAppendingString:@"Hints/"];
+    NSArray *item = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:targetDirectory error:&fetchError];
+    return (int)item.count;
+}
+
 + (void)removeSession{
     [self remove:@""];
 }

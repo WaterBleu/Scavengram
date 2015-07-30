@@ -30,17 +30,26 @@ static NSString * const reuseIdentifier = @"ClueCell";
     [super viewDidLoad];
     _imageDataArray = [[NSMutableArray alloc] init];
     _photoIDArray = [[NSMutableArray alloc] init];
+    [self setupHint];
+}
+
+- (void)setupHint {
     if(![Util hasFetchedImage])
         [self fetchResult];
     else{
-        for(int i = 0; i < numResult; i++){
-            NSData *data = [Util getImageData:[NSString stringWithFormat:@"%d-%d", _currentClueIndex, i] withFolderName:@"Hints"];
-            [_imageDataArray addObject:data];
+        if([Util getNumOfHints] == numResult){
+            for(int i = 0; i < numResult; i++){
+                NSData *data = [Util getImageData:[NSString stringWithFormat:@"%d-%d", _currentClueIndex, i] withFolderName:@"Hints"];
+                [_imageDataArray addObject:data];
+            }
         }
+        else
+            [self fetchResult];
     }
 }
 
 - (void)fetchResult {
+    //self.navigationItem.hidesBackButton = YES;
     
     NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=any&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     
@@ -96,6 +105,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
                                 [Util writeToFile:data withFolderName:@"Hints" andFileName:[NSString stringWithFormat:@"%d-%d",_currentClueIndex , i]];
                                 [_imageDataArray addObject:[Util getImageData:[NSString stringWithFormat:@"%d-%d",_currentClueIndex , i] withFolderName:@"Hints"]];
                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                    //self.navigationItem.hidesBackButton = NO;
                                     [self.collectionView reloadData];
                                 });
                             }
@@ -126,6 +136,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [_imageDataArray count];
 }
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     int width = collectionView.bounds.size.width;

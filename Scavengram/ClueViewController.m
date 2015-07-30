@@ -43,7 +43,6 @@
                                     target:nil
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
-    
 }
 
 -(void)returnToStart:(id)sender {

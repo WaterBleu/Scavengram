@@ -15,6 +15,7 @@
 + (void)writeToFile:(NSData*)data withFolderName:(NSString*)folderName andFileName:(NSString *)fileName;
 + (NSData*)getImageData:(NSString*)fileName withFolderName:(NSString*)folderName;
 + (BOOL)hasFetchedImage;
++ (int)getNumOfHints;
 
 + (void)removeSession;
 + (void)removeHints;
