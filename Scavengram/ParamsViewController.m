@@ -47,6 +47,8 @@
     _photoIDArray = [[NSMutableArray alloc] init];
     _geophotoArray = [[NSMutableArray alloc] init];
     
+    self.navigationItem.title = @"Scavengram";
+    
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     [realm deleteAllObjects];
@@ -170,6 +172,8 @@
                                 [clueView setGeophotoArray:_geophotoArray];
                                 [clueView setPhotoIDArray:_photoIDArray];
                                 [self.spinner stopAnimating];
+                                
+                                
                                 
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     

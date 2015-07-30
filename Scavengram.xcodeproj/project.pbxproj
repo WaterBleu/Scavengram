@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		641FA2CF08C6A521BB1B5620 /* Pods_Scavengram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDD8FE19874EEC89C3177ABE /* Pods_Scavengram.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		97200AD71B6AA14700C38EA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97200AD51B6AA14700C38EA3 /* Main.storyboard */; };
 		97A716271B66D01E009096DB /* ParamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716261B66D01E009096DB /* ParamsViewController.m */; };
 		97A7162A1B66D29B009096DB /* ClueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A716291B66D29B009096DB /* ClueViewController.m */; };
 		97A7162D1B66D2BA009096DB /* CluesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A7162C1B66D2BA009096DB /* CluesCollectionViewController.m */; };
@@ -19,7 +20,6 @@
 		BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD69B81E1B66C488006378C9 /* LaunchScreen.xib */; };
 		BD69B82C1B66C488006378C9 /* ScavengramTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B82B1B66C488006378C9 /* ScavengramTests.m */; };
 		BD69B8371B66FDC4006378C9 /* GeoPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69B8361B66FDC4006378C9 /* GeoPhoto.m */; };
-		BDAE082D1B694BE500CF0B3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDAE082B1B694BE500CF0B3F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +35,7 @@
 /* Begin PBXFileReference section */
 		4336DAACFAD20E24C44FB5EE /* Pods-Scavengram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scavengram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram.debug.xcconfig"; sourceTree = "<group>"; };
 		4A76724CD2F98C4DE7105396 /* Pods-Scavengram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scavengram.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scavengram/Pods-Scavengram.release.xcconfig"; sourceTree = "<group>"; };
+		97200AD61B6AA14700C38EA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Scavengram/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		97A716251B66D01E009096DB /* ParamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParamsViewController.h; sourceTree = "<group>"; };
 		97A716261B66D01E009096DB /* ParamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParamsViewController.m; sourceTree = "<group>"; };
 		97A716281B66D29B009096DB /* ClueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClueViewController.h; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		BD69B82B1B66C488006378C9 /* ScavengramTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScavengramTests.m; sourceTree = "<group>"; };
 		BD69B8351B66FDC4006378C9 /* GeoPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPhoto.h; sourceTree = "<group>"; };
 		BD69B8361B66FDC4006378C9 /* GeoPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPhoto.m; sourceTree = "<group>"; };
-		BDAE082C1B694BE500CF0B3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BDD8FE19874EEC89C3177ABE /* Pods_Scavengram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scavengram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -134,8 +134,8 @@
 				97A7162F1B66D2F8009096DB /* CluesCollectionViewCell.m */,
 				BD69B8351B66FDC4006378C9 /* GeoPhoto.h */,
 				BD69B8361B66FDC4006378C9 /* GeoPhoto.m */,
+				97200AD51B6AA14700C38EA3 /* Main.storyboard */,
 				BD69B81C1B66C488006378C9 /* Images.xcassets */,
-				BDAE082B1B694BE500CF0B3F /* Main.storyboard */,
 				BD69B81E1B66C488006378C9 /* LaunchScreen.xib */,
 				BD69B80F1B66C488006378C9 /* Supporting Files */,
 			);
@@ -251,7 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDAE082D1B694BE500CF0B3F /* Main.storyboard in Resources */,
+				97200AD71B6AA14700C38EA3 /* Main.storyboard in Resources */,
 				BD69B8201B66C488006378C9 /* LaunchScreen.xib in Resources */,
 				BD69B81D1B66C488006378C9 /* Images.xcassets in Resources */,
 			);
@@ -349,20 +349,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		97200AD51B6AA14700C38EA3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				97200AD61B6AA14700C38EA3 /* Base */,
+			);
+			name = Main.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		BD69B81E1B66C488006378C9 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BD69B81F1B66C488006378C9 /* Base */,
 			);
 			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-		BDAE082B1B694BE500CF0B3F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BDAE082C1B694BE500CF0B3F /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

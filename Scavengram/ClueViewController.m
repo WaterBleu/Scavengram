@@ -38,6 +38,15 @@
     UIBarButtonItem *newGameButton = [[UIBarButtonItem alloc] initWithTitle:@"New Game" style:UIBarButtonItemStylePlain target:self action:@selector(returnToStart:)];
     
     self.navigationItem.rightBarButtonItem = newGameButton;
+    self.navigationItem.title = [NSString stringWithFormat:@"Clue #%d", (self.currentClueIndex + 1)];
+    
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
 }
 
 -(void)returnToStart:(id)sender {

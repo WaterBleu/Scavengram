@@ -28,6 +28,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
     _imageDataArray = [[NSMutableArray alloc] init];
     _photoIDArray = [[NSMutableArray alloc] init];
     [self fetchResult];
+    
 }
 
 - (void)fetchResult {
@@ -40,7 +41,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
                          , _currentGeoPhoto.lat //main image's lat
                          , _currentGeoPhoto.lng //main image's lng
                          , @"0.3"
-                         , @"9"]];
+                         , @"5"]];
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
@@ -125,6 +126,11 @@ static NSString * const reuseIdentifier = @"ClueCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [_imageDataArray count];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    int width = collectionView.bounds.size.width;
+    return CGSizeMake(width, width);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
