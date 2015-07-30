@@ -51,9 +51,8 @@
 -(void)setUpLocationManager {
     if (!_locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         _locationManager.distanceFilter = 10;
-        //have to move 100m before location manager checks again
         
         _locationManager.delegate = self;
         [_locationManager requestWhenInUseAuthorization];
