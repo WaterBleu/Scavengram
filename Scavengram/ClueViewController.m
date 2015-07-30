@@ -166,7 +166,7 @@
 - (IBAction)checkResult:(UIButton *)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:nil];
     
@@ -208,8 +208,7 @@
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
     
     self.mainLabel.text = [NSString stringWithFormat:@"Distance from Clue: %@", [currentClue findDistance:currentLocation]];
-    if(YES){
-    //if([currentClue isWithinProximityToLocation:currentLocation]){
+    if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;
             [self setClue];
