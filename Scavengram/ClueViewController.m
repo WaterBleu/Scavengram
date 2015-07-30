@@ -179,8 +179,8 @@
     NSString *lng = _currentGeoPhoto[@"lng"];
     
     NSLog(@"https://www.google.ca/maps/dir/%@,%@//@%@,%@,15z",lat,lng,lat,lng);
-    self.mainLabel.text = @"Check log for location";
     self.mainLabel.text = @"";
+    [Util removeHints];
 }
 
 #pragma mark - Photo function
@@ -208,8 +208,8 @@
     GeoPhoto *currentClue = _geophotoArray[_currentClueIndex];
     
     self.mainLabel.text = [NSString stringWithFormat:@"Distance from Clue: %@", [currentClue findDistance:currentLocation]];
-    
-    if([currentClue isWithinProximityToLocation:currentLocation]){
+    if(YES){
+    //if([currentClue isWithinProximityToLocation:currentLocation]){
         if (_currentClueIndex < _geophotoArray.count - 1) {
             _currentClueIndex++;
             [self setClue];

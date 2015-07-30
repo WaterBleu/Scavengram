@@ -1,4 +1,4 @@
-//
+    //
 //  CluesCollectionViewController.m
 //  Scavengram
 //
@@ -16,9 +16,12 @@
 @property (nonatomic) NSMutableArray *imageDataArray;
 @property (nonatomic) NSMutableArray *photoIDArray;
 
+@property (nonatomic) BOOL hasFetched;
+
 
 @end
 
+const int numResult = 5;
 @implementation CluesCollectionViewController
 
 static NSString * const reuseIdentifier = @"ClueCell";
@@ -27,8 +30,14 @@ static NSString * const reuseIdentifier = @"ClueCell";
     [super viewDidLoad];
     _imageDataArray = [[NSMutableArray alloc] init];
     _photoIDArray = [[NSMutableArray alloc] init];
-    [self fetchResult];
-    
+    if(![Util hasFetchedImage])
+        [self fetchResult];
+    else{
+        for(int i = 0; i < numResult; i++){
+            NSData *data = [Util getImageData:[NSString stringWithFormat:@"%d-%d", _currentClueIndex, i] withFolderName:@"Hints"];
+            [_imageDataArray addObject:data];
+        }
+    }
 }
 
 - (void)fetchResult {
@@ -41,7 +50,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
                          , _currentGeoPhoto.lat //main image's lat
                          , _currentGeoPhoto.lng //main image's lng
                          , @"0.3"
-                         , @"5"]];
+                         , [NSString stringWithFormat:@"%d", numResult]]];
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
@@ -136,7 +145,7 @@ static NSString * const reuseIdentifier = @"ClueCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     // Configure the cell
-    NSData *data = [_imageDataArray objectAtIndex:indexPath.row];
+    NSData *data = [Util getImageData:[NSString stringWithFormat:@"%d-%d", _currentClueIndex, (int)indexPath.item] withFolderName:@"Hints"];//[_imageDataArray objectAtIndex:indexPath.row];
     UIImage *image = [UIImage imageWithData:data];
     CluesCollectionViewCell *cell = [self.itemView dequeueReusableCellWithReuseIdentifier:@"ClueCell" forIndexPath:indexPath];
     cell.geoPhotoImageView.image = image;

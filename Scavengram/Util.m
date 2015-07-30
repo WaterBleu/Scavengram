@@ -21,13 +21,18 @@
     return sessionString;
 }
 
-+ (NSString*)getStorageDirectory{
-    NSString *sessionString = [self getSession];
-    
-    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
++ (NSString*)getRootDirectory{
     NSString *bundleName = [self getProductName];
     
-    NSString *targetDirectory = [documentDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/%@/", bundleName, sessionString]];
+    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *targetDirectory = [documentDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@/", bundleName]];
+    return targetDirectory;
+}
+
++ (NSString*)getStorageDirectory{
+    NSString *sessionString = [self getSession];
+
+    NSString *targetDirectory = [[self getRootDirectory] stringByAppendingString:[NSString stringWithFormat:@"%@/", sessionString]];
     
     return targetDirectory;
 }
@@ -60,9 +65,32 @@
     return data;
 }
 
-+ (BOOL)removeSession{
-    NSString *targetDirectory = [self getStorageDirectory];
-    return [[NSFileManager defaultManager] removeItemAtPath:targetDirectory error:nil];
++ (BOOL)hasFetchedImage{
+    NSError *fetchError = nil;
+    NSString *targetDirectory = [[self getStorageDirectory] stringByAppendingString:@"Hints/"];
+    NSArray *item = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:targetDirectory error:&fetchError];
+    if(item == nil)
+        return NO;
+    else
+        return item.count > 0;
+}
+
++ (void)removeSession{
+    [self remove:@""];
+}
+
++ (void)removeHints{
+    [self remove:@"Hints"];
+}
+
++ (void)remove:(NSString*)folderName{
+    NSString *targetDirectory = [[self getRootDirectory] stringByAppendingString:[NSString stringWithFormat:@"%@", folderName]];
+    
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSArray *fileArray = [fileMgr contentsOfDirectoryAtPath:targetDirectory error:nil];
+    for (NSString *filename in fileArray)  {
+        [fileMgr removeItemAtPath:[targetDirectory stringByAppendingPathComponent:filename] error:NULL];
+    }
 }
 
 @end
