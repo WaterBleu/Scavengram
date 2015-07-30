@@ -47,7 +47,7 @@
     _photoIDArray = [[NSMutableArray alloc] init];
     _geophotoArray = [[NSMutableArray alloc] init];
     
-    self.navigationItem.title = @"Scavengram";
+    self.navigationItem.title = [Util getProductName];
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
