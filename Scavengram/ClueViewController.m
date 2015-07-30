@@ -57,6 +57,8 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * __nonnull action) {
+        //new game confirmed and clear out session.
+        [Util removeSession];
         
         ParamsViewController *paramsView = [self.storyboard instantiateViewControllerWithIdentifier:@"ParamsViewController"];
         self.navigationController.viewControllers = [NSArray arrayWithObject:paramsView];
