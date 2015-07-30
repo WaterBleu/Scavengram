@@ -161,7 +161,7 @@
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 GeoPhoto *geoPhoto = nil;
                                 if (!error){
-                                    [Util writeToFile:data andFileName:@"0"];
+                                    [Util writeToFile:data withFolderName:@"Clues" andFileName:@"0"];
                                     geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     [_geophotoArray addObject:geoPhoto];
                                 }

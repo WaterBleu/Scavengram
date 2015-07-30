@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GeoPhoto.h"
 
 @interface CluesCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *itemView;
+
+@property (nonatomic) GeoPhoto *currentGeoPhoto;
+@property (nonatomic) int currentClueIndex;
 
 @end

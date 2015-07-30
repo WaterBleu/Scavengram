@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "ParamsViewController.h"
 #import "ClueViewController.h"
-#import "CluesCollectionViewCell.h"
+#import "CluesCollectionViewController.h"
 #import "GeoPhoto.h"
 #import "Util.h"
 
@@ -122,7 +122,7 @@
                             NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
                             NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                 if(!error){
-                                    [Util writeToFile:data andFileName:[NSString stringWithFormat:@"%d", i]];
+                                    [Util writeToFile:data withFolderName:@"Clues" andFileName:[NSString stringWithFormat:@"%d", i]];
 
                                     GeoPhoto *geoPhoto = [[GeoPhoto alloc]initWithUrl:imageURL.absoluteString andLat:retrievedPhotoLat andLng:retrievedPhotoLng];
                                     
@@ -153,17 +153,17 @@
 }
 
 - (IBAction)checkResult:(UIButton *)sender {
-//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-//    picker.delegate = self;
-//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//    
-//    [self presentViewController:picker animated:YES completion:nil];
-    [self returnToStart:@"gameWon"];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
 }
 
 - (void) setClue{
     _currentGeoPhoto = self.geophotoArray[_currentClueIndex];
-    self.mainImageView.image = [UIImage imageWithData:[Util getImageData:_currentClueIndex]];
+    self.mainImageView.image = [UIImage imageWithData:[Util getImageData:[NSString stringWithFormat:@"%d", _currentClueIndex] withFolderName:@"Clues"]];
     NSString *lat = _currentGeoPhoto[@"lat"];
     NSString *lng = _currentGeoPhoto[@"lng"];
     
@@ -179,8 +179,9 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"segueToCluesCV"]) {
-        CluesCollectionViewCell *vc = segue.destinationViewController;
-//        vc.toDoItem = self.object;
+        CluesCollectionViewController *vc = (CluesCollectionViewController*)segue.destinationViewController;
+        vc.currentGeoPhoto = _currentGeoPhoto;
+        vc.currentClueIndex = _currentClueIndex;
     }
 }
 
@@ -196,7 +197,7 @@
             [self setClue];
         } else {
             NSLog(@"Game Over! You Won!!");
-            [self returnToStart:self];
+            [self returnToStart:@"gameWon"];
         }
     } else {
         NSLog(@"Bummer! Not close enough my friend");

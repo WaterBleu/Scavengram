@@ -274,10 +274,10 @@
             </objects>
             <point key="canvasLocation" x="4564.5" y="372.75"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Clues Collection View Controller-->
         <scene sceneID="va9-uV-rz4">
             <objects>
-                <collectionViewController id="o47-JB-gFn" sceneMemberID="viewController">
+                <collectionViewController id="o47-JB-gFn" customClass="CluesCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="OaO-Do-cq6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,6 +340,9 @@
                             <outlet property="delegate" destination="o47-JB-gFn" id="J5r-Qk-jgo"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="itemView" destination="OaO-Do-cq6" id="scM-x4-H9v"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x4X-cR-ViD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

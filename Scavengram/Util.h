@@ -10,7 +10,7 @@
 
 @interface Util : NSObject
 
-+ (void)writeToFile:(NSData*)data andFileName:(NSString*)name;
-+ (NSData*)getImageData:(int)index;
++ (void)writeToFile:(NSData*)data withFolderName:(NSString*)folderName andFileName:(NSString *)fileName;
++ (NSData*)getImageData:(NSString*)fileName withFolderName:(NSString*)folderName;
 
 @end

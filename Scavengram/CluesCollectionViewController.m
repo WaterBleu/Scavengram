@@ -9,13 +9,13 @@
 #import "CluesCollectionViewController.h"
 #import "CluesCollectionViewCell.h"
 #import "GeoPhoto.h"
+#import "Util.h"
 
-@interface CluesCollectionViewController () {
+@interface CluesCollectionViewController ()
 
-    NSMutableArray *picsArray;
-    NSMutableArray *photoIDArray;
-    
-}
+@property (nonatomic) NSMutableArray *imageDataArray;
+@property (nonatomic) NSMutableArray *photoIDArray;
+
 
 @end
 
@@ -25,18 +25,20 @@ static NSString * const reuseIdentifier = @"ClueCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _imageDataArray = [[NSMutableArray alloc] init];
+    _photoIDArray = [[NSMutableArray alloc] init];
+    [self fetchResult];
 }
 
 - (void)fetchResult {
     
-    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=all&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
+    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&tags=%@&tag_mode=any&min_upload_date=1420070400&sort=interestingness-desc&privacy_filter=1&has_geo=1&lat=%f&lon=%f&radius=%@&per_page=%@&method=flickr.photos.search&nojsoncallback=1";
     
     NSURL *targetURL = [[NSURL alloc] initWithString:
                         [NSString stringWithFormat:apiURL
-                         , @"" //current tag
-                         , @"" //main image's lat
-                         , @"" //main image's lng
+                         , @"restaurant,cafe,shopping,vacation,fun" //current tag
+                         , _currentGeoPhoto.lat //main image's lat
+                         , _currentGeoPhoto.lng //main image's lng
                          , @"0.3"
                          , @"9"]];
     
@@ -51,57 +53,48 @@ static NSString * const reuseIdentifier = @"ClueCell";
             NSArray *retrievedPhotoID = [retrievedPhotoIDDict valueForKeyPath:@"photos.photo"];
             
             for(NSDictionary *dict in retrievedPhotoID){
-                [photoIDArray addObject:dict[@"id"]];
+                [_photoIDArray addObject:dict[@"id"]];
             }
             
             NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.getsizes&nojsoncallback=1";
             
-            NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[photoIDArray firstObject]]];
-            // retrieving the first item in the array and the rest can be downloaded in the background.
-            
-            NSURLSession *session = [NSURLSession sharedSession];
-            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
-            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                if (!error){
-                    NSError *jsonError = nil;
-                    
-                    NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                    
-                    NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"sizes.size"];
-                    
-                    NSURL *imageURL;
-                    for(NSDictionary *dict in retrievedPhotos){
-                        if ([dict[@"label"] isEqualToString:@"Medium"]) {
-                            imageURL = [[NSURL alloc] initWithString:dict[@"source"]];
+            for(int i = 0; i < _photoIDArray.count; i++){
+                NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,_photoIDArray[i]]];
+                
+                NSURLSession *session = [NSURLSession sharedSession];
+                NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
+                NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                    if (!error){
+                        NSError *jsonError = nil;
+                        
+                        NSDictionary *retrievedPhotoDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+                        
+                        NSArray *retrievedPhotos = [retrievedPhotoDict valueForKeyPath:@"sizes.size"];
+                        
+                        NSURL *imageURL;
+                        for(NSDictionary *dict in retrievedPhotos){
+                            //Change size accordingly https://www.flickr.com/services/api/flickr.photos.getSizes.html
+                            if ([dict[@"label"] isEqualToString:@"Medium"]) {
+                                imageURL = [[NSURL alloc] initWithString:dict[@"source"]];
+                            }
                         }
+                        
+                        NSURLSession *session = [NSURLSession sharedSession];
+                        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
+                        NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                            if(!error){
+                                [Util writeToFile:data withFolderName:@"Hints" andFileName:[NSString stringWithFormat:@"%d-%d",_currentClueIndex , i]];
+                                [_imageDataArray addObject:[Util getImageData:[NSString stringWithFormat:@"%d-%d",_currentClueIndex , i] withFolderName:@"Hints"]];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.collectionView reloadData];
+                                });
+                            }
+                        }];
+                        [dataTask resume];
                     }
-                    
-                    NSString *apiURL = @"https://api.flickr.com/services/rest/?api_key=5f834de364c936e23556add640bc4ee8&format=json&photo_id=%@&method=flickr.photos.geo.getlocation&nojsoncallback=1";
-                    
-                    NSURL *targetURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:apiURL,[photoIDArray firstObject]]];
-                    
-                    NSURLSession *session = [NSURLSession sharedSession];
-                    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:targetURL];
-                    NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                        if (!error){
-                            NSError *jsonError = nil;
-                            
-                            NSURLSession *session = [NSURLSession sharedSession];
-                            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:imageURL];
-                            NSURLSessionTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                if (!error){
-                                    UIImage *image = [[UIImage alloc] initWithData:data];
-                                    [picsArray addObject:image];
-                                }
-                                
-                                
-                            }];
-                            [dataTask resume];
-                        }
-                    }];
-                    [dataTask resume];
-                }
-            }];
+                }];
+                [dataTask resume];
+            }
             [dataTask resume];
         }
     }];
@@ -131,15 +124,16 @@ static NSString * const reuseIdentifier = @"ClueCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [picsArray count];
+    return [_imageDataArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     // Configure the cell
-    GeoPhoto *eachImage = [picsArray objectAtIndex:indexPath.row];
+    NSData *data = [_imageDataArray objectAtIndex:indexPath.row];
+    UIImage *image = [UIImage imageWithData:data];
     CluesCollectionViewCell *cell = [self.itemView dequeueReusableCellWithReuseIdentifier:@"ClueCell" forIndexPath:indexPath];
-    // [cell.geoPhotoImageView setImage:eachImage];
+    cell.geoPhotoImageView.image = image;
     
     return cell;
     

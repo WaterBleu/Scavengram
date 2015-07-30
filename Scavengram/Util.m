@@ -27,12 +27,13 @@
     return targetDirectory;
 }
 
-+ (void)writeToFile:(NSData*)data andFileName:(NSString *)name{
++ (void)writeToFile:(NSData*)data withFolderName:(NSString*)folderName andFileName:(NSString *)fileName{
     
     NSError *folderError = nil;
     NSError *fileError = nil;
     
-    NSString *targetDirectory = [self getStorageDirectory];
+    NSString *targetDirectory = [[self getStorageDirectory] stringByAppendingString:[NSString stringWithFormat:@"%@/", folderName]];
+    
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:targetDirectory])
         [[NSFileManager defaultManager] createDirectoryAtPath: targetDirectory
@@ -40,15 +41,15 @@
                                                    attributes:nil
                                                         error:&folderError];
     
-    NSString *path = [targetDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",name ,[self getProductName]]];
+    NSString *path = [targetDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileName ,[self getProductName]]];
     
     [data writeToFile:path options:NSDataWritingAtomic error:&fileError];
     
 }
 
-+ (NSData*)getImageData:(int)index{
-    NSString *targetDirectory = [self getStorageDirectory];
-    NSString *path = [targetDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.%@",index ,[self getProductName]]];
++ (NSData*)getImageData:(NSString*)fileName withFolderName:(NSString*)folderName{
+    NSString *targetDirectory = [[self getStorageDirectory] stringByAppendingString:[NSString stringWithFormat:@"%@/", folderName]];
+    NSString *path = [targetDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileName ,[self getProductName]]];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     
     return data;
